@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arkitektjobb Stockholm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        :root{--black:#1a1a1a;--dark:#333;--mid:#555;--light:#888;--faint:#bbb;--border:#e0e0e0;--bg:#f7f7f7;--white:#fff;--accent:#2c5282;--accent-light:#ebf4ff;--green:#276749;--green-light:#f0fff4;--warm:#744210;--warm-light:#fffff0}
+        html{font-size:16px;scroll-behavior:smooth}
+        body{font-family:'Inter',system-ui,sans-serif;color:var(--black);background:var(--white);line-height:1.65;-webkit-font-smoothing:antialiased}
+        .wrap{max-width:880px;margin:0 auto;padding:0 1.5rem}
+        nav{position:sticky;top:0;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:100;padding:.65rem 0}
+        nav .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem}
+        nav .logo{font-family:'Lora',serif;font-weight:600;font-size:1rem;color:var(--black);text-decoration:none}
+        nav .links{display:flex;gap:1.2rem;flex-wrap:wrap}
+        nav .links a{color:var(--mid);text-decoration:none;font-size:.76rem;font-weight:500}
+        nav .links a:hover{color:var(--black)}
+        .hero{padding:3.5rem 0 1.5rem}
+        .hero h1{font-family:'Lora',serif;font-size:2.2rem;font-weight:600;line-height:1.2;margin-bottom:.6rem}
+        .hero .sub{font-size:1rem;color:var(--mid);max-width:600px;font-weight:300}
+        .hero .date{margin-top:.6rem;font-size:.72rem;color:var(--light)}
+        .stats{display:flex;gap:1.5rem;flex-wrap:wrap;margin:1.5rem 0 2rem}
+        .stat{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1rem 1.3rem;flex:1;min-width:140px}
+        .stat .sn{font-family:'Lora',serif;font-size:1.6rem;font-weight:600;color:var(--accent)}
+        .stat .sl{font-size:.72rem;color:var(--light);text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-top:.1rem}
+        section{margin-bottom:3rem}
+        h2{font-family:'Lora',serif;font-size:1.5rem;font-weight:600;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--black)}
+        h3{font-family:'Lora',serif;font-size:1.1rem;font-weight:500;margin:1.8rem 0 .6rem}
+        p{margin-bottom:.9rem;color:var(--dark)}
+        a{color:var(--accent);text-underline-offset:2px}
+        .filters{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1rem 1.3rem;margin-bottom:1.5rem}
+        .filters-title{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--light);margin-bottom:.6rem}
+        .filter-row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:end}
+        .fg{display:flex;flex-direction:column;gap:.2rem}
+        .fg label{font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--light)}
+        .fg select,.fg input{font-family:'Inter',sans-serif;font-size:.8rem;padding:.35rem .5rem;border:1px solid var(--border);border-radius:6px;background:var(--white);color:var(--dark);min-width:130px}
+        .fg select:focus,.fg input:focus{outline:none;border-color:var(--accent)}
+        .result-count{font-size:.74rem;color:var(--light);margin:.6rem 0}
+        .job{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.5rem;margin-bottom:.8rem;transition:box-shadow .2s}
+        .job:hover{box-shadow:0 3px 16px rgba(0,0,0,.05)}
+        .job-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem;margin-bottom:.3rem}
+        .job h3{margin:0;font-size:1rem;line-height:1.3}
+        .job .company{font-size:.85rem;color:var(--accent);font-weight:500;margin-bottom:.3rem}
+        .job .meta{display:flex;flex-wrap:wrap;gap:1rem;font-size:.76rem;color:var(--light);margin:.3rem 0}
+        .job .meta span::before{content:'·';margin-right:.35rem}.job .meta span:first-child::before{content:''}
+        .job .desc{font-size:.82rem;color:var(--mid);line-height:1.55;margin:.4rem 0}
+        .badge{font-size:.62rem;font-weight:600;padding:.14rem .45rem;border-radius:12px;text-transform:uppercase;letter-spacing:.03em}
+        .badge.type-firm{background:var(--accent-light);color:var(--accent)}
+        .badge.type-intern{background:var(--warm-light);color:var(--warm)}
+        .badge.type-open{background:var(--green-light);color:var(--green)}
+        .badge.type-public{background:#e9d8fd;color:#553c9a}
+        .job .deadline{font-size:.72rem;color:var(--light);white-space:nowrap}
+        .job .apply{display:inline-block;margin-top:.5rem;font-size:.75rem;font-weight:500;padding:.3rem .7rem;border:1px solid var(--accent);border-radius:6px;text-decoration:none;color:var(--accent)}
+        .job .apply:hover{background:var(--accent);color:var(--white)}
+        .link-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.8rem;margin:1rem 0}
+        .link-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1rem 1.2rem}
+        .link-card .lc-title{font-weight:600;font-size:.88rem;margin-bottom:.2rem}
+        .link-card .lc-desc{font-size:.76rem;color:var(--mid)}
+        .link-card a{text-decoration:none}
+        footer{padding:2rem 0;border-top:1px solid var(--border);font-size:.72rem;color:var(--light);text-align:center;margin-top:1.5rem}
+        @media(max-width:640px){html{font-size:14px}.hero h1{font-size:1.7rem}.filter-row{flex-direction:column;align-items:stretch}.fg select,.fg input{min-width:auto;width:100%}.stats{flex-direction:column}}
+    </style>
+</head>
+<body>
+<nav><div class="wrap">
+    <a href="#" class="logo">Arkitektjobb</a>
+    <div class="links">
+        <a href="#jobb">Jobb</a>
+        <a href="#firms">Kontor</a>
+        <a href="#search">Sok mer</a>
+    </div>
+</div></nav>
+
+<div class="wrap">
+<div class="hero">
+    <h1>Arkitektjobb i Stockholm</h1>
+    <p class="sub">Byggnads-, landskaps- och inredningsarkitekt. Samlade fran kontor och jobbsidor.</p>
+    <p class="date">Uppdaterad 15 april 2026. Jobb kan ha fyllts, kolla alltid originallank.</p>
+</div>
+
+<div class="stats">
+    <div class="stat"><div class="sn" id="total-count">0</div><div class="sl">Listade har</div></div>
+    <div class="stat"><div class="sn" id="firm-count">0</div><div class="sl">Kontor</div></div>
+    <div class="stat"><div class="sn">155+</div><div class="sl">Pa arkitektjobb.nu</div></div>
+    <div class="stat"><div class="sn">434+</div><div class="sl">Pa LinkedIn</div></div>
+</div>
+
+<section id="jobb">
+<h2>Lediga tjanster</h2>
+<div class="filters">
+    <div class="filters-title">Filtrera</div>
+    <div class="filter-row">
+        <div class="fg"><label>Typ</label><select id="f-type"><option value="">Alla</option><option value="arkitekt">Arkitekt</option><option value="landskapsarkitekt">Landskapsarkitekt</option><option value="inredningsarkitekt">Inredningsarkitekt</option><option value="praktik">Praktik</option><option value="ingenjor">Ingenjor</option><option value="ovrigt">Ovrigt</option></select></div>
+        <div class="fg"><label>Kontor</label><select id="f-firm"><option value="">Alla</option></select></div>
+        <div class="fg"><label>Anstallning</label><select id="f-emp"><option value="">Alla</option><option value="fast">Fast anstallning</option><option value="praktik">Praktik</option><option value="spontan">Spontanansokan</option></select></div>
+        <div class="fg"><label>Sok</label><input id="f-search" type="text" placeholder="Sok fritt..."></div>
+    </div>
+    <div class="result-count" id="rc"></div>
+</div>
+<div id="jobs-container"></div>
+</section>
+
+<section id="firms">
+<h2>Arkitektkontor som rekryterar</h2>
+<p>Stora kontor med verksamhet i Stockholm. Manga tar emot spontanansokningar aven nar inga tjanster ar utlysta.</p>
+<div class="link-grid">
+    <div class="link-card"><a href="https://whitearkitekter.com/work-with-us/" target="_blank"><div class="lc-title">White Arkitekter</div><div class="lc-desc">Skandinaviens ledande. Hallbar arkitektur. ~800 anstallda.</div></a></div>
+    <div class="link-card"><a href="https://www.tengbom.se/karriar/" target="_blank"><div class="lc-title">Tengbom</div><div class="lc-desc">Grundat 1906. Arkitektur, inredning, landskap. ~300 anstallda.</div></a></div>
+    <div class="link-card"><a href="https://semren-mansson.se/jobba-med-oss" target="_blank"><div class="lc-title">Semren &amp; Mansson</div><div class="lc-desc">Stockholm, Goteborg, Malmo. Bostad, kontor, samhalle.</div></a></div>
+    <div class="link-card"><a href="https://fojab.se/en/work-with-us/" target="_blank"><div class="lc-title">FOJAB</div><div class="lc-desc">Grundat 1971. ~170 anstallda. Kontor i Stockholm.</div></a></div>
+    <div class="link-card"><a href="https://www.sweco.se/karriar/lediga-tjanster/" target="_blank"><div class="lc-title">Sweco Architects</div><div class="lc-desc">Europas storsta arkitekt- och ingenjorsforetag.</div></a></div>
+    <div class="link-card"><a href="https://wingardhs.se/karriar/" target="_blank"><div class="lc-title">Wingardhs</div><div class="lc-desc">Konstnarligt drivet. Stockholm sedan 1985. ~200 anstallda.</div></a></div>
+    <div class="link-card"><a href="https://www.sandellsandberg.se" target="_blank"><div class="lc-title">Sandellsandberg</div><div class="lc-desc">Arkitektur och design. Stockholm.</div></a></div>
+    <div class="link-card"><a href="https://www.mandaworks.com" target="_blank"><div class="lc-title">Mandaworks</div><div class="lc-desc">Stadsplanering och landskapsarkitektur. Stockholm.</div></a></div>
+    <div class="link-card"><a href="https://www.dinelljohansson.se" target="_blank"><div class="lc-title">Dinell Johansson</div><div class="lc-desc">Bostader, kontor, stadsplanering. Stockholm.</div></a></div>
+    <div class="link-card"><a href="https://www.arkitema.com/sv/karriar" target="_blank"><div class="lc-title">Arkitema</div><div class="lc-desc">Nordiskt kontor. Bostad, skola, halsa. Stockholm.</div></a></div>
+    <div class="link-card"><a href="https://www.strategisk-arkitektur.se" target="_blank"><div class="lc-title">Strategisk Arkitektur</div><div class="lc-desc">Kontorsmiljoer, arbetsplatsstrategi. Stockholm.</div></a></div>
+    <div class="link-card"><a href="https://www.equator.se" target="_blank"><div class="lc-title">Equator Stockholm</div><div class="lc-desc">Arkitektur, design, stadsplanering.</div></a></div>
+</div>
+</section>
+
+<section id="search">
+<h2>Sok mer</h2>
+<p>Dessa jobbsidor har fler listningar an vad som ryms har. Sok direkt:</p>
+<div class="link-grid">
+    <div class="link-card"><a href="https://arkitektjobb.nu/lediga-jobb/stockholm" target="_blank"><div class="lc-title">arkitektjobb.nu</div><div class="lc-desc">155+ arkitektjobb i Stockholm.</div></a></div>
+    <div class="link-card"><a href="https://www.linkedin.com/jobs/architect-jobs-stockholm" target="_blank"><div class="lc-title">LinkedIn</div><div class="lc-desc">434+ arkitekt-tjanster i Stockholm.</div></a></div>
+    <div class="link-card"><a href="https://se.indeed.com/q-arkitekt-l-stockholms-kommun-jobb.html" target="_blank"><div class="lc-title">Indeed</div><div class="lc-desc">25+ arkitektjobb i Stockholms kommun.</div></a></div>
+    <div class="link-card"><a href="https://arkitekten.se/platsannonser/" target="_blank"><div class="lc-title">Arkitekten.se</div><div class="lc-desc">Sveriges Arkitekters platsannonser.</div></a></div>
+    <div class="link-card"><a href="https://jobbsafari.se/lediga-jobb/yrke/arkitekt" target="_blank"><div class="lc-title">Jobbsafari</div><div class="lc-desc">92 lediga arkitekttjanster.</div></a></div>
+    <div class="link-card"><a href="https://www.glassdoor.com/Job/sweden-architect-jobs-SRCH_IL.0,6_IN223_KO7,16.htm" target="_blank"><div class="lc-title">Glassdoor</div><div class="lc-desc">333 arkitektjobb i Sverige. Loninfo.</div></a></div>
+    <div class="link-card"><a href="https://se.jooble.org/jobb-arkitekt/Stockholm" target="_blank"><div class="lc-title">Jooble</div><div class="lc-desc">98 arkitektjobb i Stockholm.</div></a></div>
+    <div class="link-card"><a href="https://www.jobsinstockholm.com/jobs/Architecture-Planning-and-Construction" target="_blank"><div class="lc-title">Jobs in Stockholm</div><div class="lc-desc">For English speakers.</div></a></div>
+</div>
+</section>
+</div>
+
+<footer><div class="wrap">Sammanstalld 15 april 2026. Jobb kan ha fyllts. Kolla alltid originallank. Lycka till!</div></footer>
+
+<script>
+const jobs=[
+{title:"Handlaggande Antikvarie",firm:"White Arkitekter",loc:"Stockholm",type:"arkitekt",emp:"fast",deadline:"30 april 2026",desc:"Kulturarv och bevarande. Handlaggande roll inom antikvarie/arkitektur.",url:"https://white.easycruit.com/",badge:"type-firm"},
+{title:"Praktikanter till Stockholm",firm:"White Arkitekter",loc:"Stockholm",type:"praktik",emp:"praktik",deadline:"10 maj 2026",desc:"Praktikplats pa White Arkitekters Stockholmskontor.",url:"https://white.easycruit.com/",badge:"type-intern"},
+{title:"Medverkande Byggnadsingenjor",firm:"White Arkitekter",loc:"Stockholm",type:"ingenjor",emp:"fast",deadline:"Pagaende",desc:"Byggnadsingenjorsroll pa Whites Stockholmskontor.",url:"https://white.easycruit.com/",badge:"type-firm"},
+{title:"Landskapsarkitekt med handlaggarvana",firm:"FOJAB",loc:"Stockholm",type:"landskapsarkitekt",emp:"fast",deadline:"Oppet",desc:"Arbete i alla skeden fran visionsskisser och helhetskoncept pa stadsbyggnadsniva till konkret gestaltning.",url:"https://fojab.se/en/work-with-us/",badge:"type-firm"},
+{title:"Praktik i Stockholm HT 2026",firm:"FOJAB",loc:"Stockholm",type:"praktik",emp:"praktik",deadline:"Oppet",desc:"Praktikplats pa FOJABs Stockholmskontor hosttermin 2026.",url:"https://fojab.se/en/work-with-us/",badge:"type-intern"},
+{title:"Uppdragsansvarig inredningsarkitekt",firm:"Sweco Architects",loc:"Stockholm",type:"inredningsarkitekt",emp:"fast",deadline:"Pagaende",desc:"Uppdragsansvarig inredningsarkitekt till Sweco Architects i Stockholm.",url:"https://www.sweco.se/karriar/lediga-tjanster/",badge:"type-firm"},
+{title:"Medverkande ingenjor",firm:"Semren &amp; Mansson",loc:"Stockholm",type:"ingenjor",emp:"fast",deadline:"Oppet",desc:"Ingenjorsroll pa Semren &amp; Manssons Stockholmskontor.",url:"https://semren-mansson.se/jobba-med-oss",badge:"type-firm"},
+{title:"Regionchef",firm:"Semren &amp; Mansson",loc:"Stockholm",type:"ovrigt",emp:"fast",deadline:"Oppet",desc:"Regionchef for Stockholmskontoret.",url:"https://semren-mansson.se/jobba-med-oss",badge:"type-firm"},
+{title:"Landskapsarkitekt",firm:"WSP Sverige",loc:"Stockholm-Globen",type:"landskapsarkitekt",emp:"fast",deadline:"Pagaende",desc:"5-10 ars erfarenhet. Hallbar stads- och samhallsutveckling.",url:"https://se.indeed.com/q-arkitekt-l-stockholms-kommun-jobb.html",badge:"type-firm"},
+{title:"Planarkitekt (vikariat)",firm:"Ekero kommun",loc:"Ekero",type:"arkitekt",emp:"fast",deadline:"29 april 2026",desc:"Planarkitekt, vikariatstjanst i Ekero kommun.",url:"https://branschstegen.se/yrkesgrupp/arkitekt",badge:"type-public"},
+{title:"Arkitekt och Konstruktor",firm:"Wolfbuilder AB",loc:"Vaxholm",type:"arkitekt",emp:"fast",deadline:"8 maj 2026",desc:"Arkitekt- och konstruktorsroll i Vaxholm.",url:"https://branschstegen.se/yrkesgrupp/arkitekt",badge:"type-firm"},
+{title:"Projekteringsledare",firm:"Centio Consulting",loc:"Stockholm",type:"ovrigt",emp:"fast",deadline:"Pagaende",desc:"Projekteringsledare, arkitekt/civilingenjor.",url:"https://arkitektjobb.nu/lediga-jobb/stockholm",badge:"type-firm"},
+{title:"Spontanansokan",firm:"White Arkitekter",loc:"Stockholm",type:"arkitekt",emp:"spontan",deadline:"Alltid oppet",desc:"Skicka portfolio och personligt brev. White soker kreativa och nyfikna manniskor.",url:"https://whitearkitekter.com/work-with-us/",badge:"type-open"},
+{title:"Spontanansokan",firm:"Tengbom",loc:"Stockholm",type:"arkitekt",emp:"spontan",deadline:"Alltid oppet",desc:"Tengbom tar emot spontanansokningar om inga tjanster matchar.",url:"https://www.tengbom.se/karriar/",badge:"type-open"},
+{title:"Spontanansokan",firm:"Semren &amp; Mansson",loc:"Stockholm",type:"arkitekt",emp:"spontan",deadline:"Alltid oppet",desc:"Skriv personligt brev och bifoga portfolio.",url:"https://semren-mansson.se/jobba-med-oss",badge:"type-open"},
+{title:"Spontanansokan",firm:"FOJAB",loc:"Stockholm",type:"arkitekt",emp:"spontan",deadline:"Alltid oppet",desc:"FOJAB soker alltid kreativa och nyfikna kollegor.",url:"https://fojab.se/en/work-with-us/",badge:"type-open"},
+{title:"Spontanansokan",firm:"Sweco Architects",loc:"Stockholm",type:"arkitekt",emp:"spontan",deadline:"Alltid oppet",desc:"Registrera intresse i Swecos kandidatnatverk.",url:"https://www.sweco.se/karriar/lediga-tjanster/",badge:"type-open"},
+{title:"Spontanansokan",firm:"Wingardhs",loc:"Stockholm",type:"arkitekt",emp:"spontan",deadline:"Alltid oppet",desc:"Konstnarligt drivet kontor. Stockholm sedan 1985.",url:"https://wingardhs.se/karriar/",badge:"type-open"}
+];
+
+const firms=[...new Set(jobs.map(j=>j.firm))].sort();
+const firmSel=document.getElementById('f-firm');
+firms.forEach(f=>{const o=document.createElement('option');o.value=f;o.textContent=f;firmSel.appendChild(o);});
+
+function render(){
+ const t=document.getElementById('f-type').value;
+ const f=document.getElementById('f-firm').value;
+ const e=document.getElementById('f-emp').value;
+ const s=document.getElementById('f-search').value.toLowerCase();
+ let filtered=jobs.filter(j=>{
+  if(t&&j.type!==t)return false;
+  if(f&&j.firm!==f)return false;
+  if(e&&j.emp!==e)return false;
+  if(s&&!(j.title.toLowerCase().includes(s)||j.firm.toLowerCase().includes(s)||j.desc.toLowerCase().includes(s)||j.loc.toLowerCase().includes(s)))return false;
+  return true;
+ });
+ document.getElementById('rc').textContent=`Visar ${filtered.length} av ${jobs.length} tjanster`;
+ document.getElementById('total-count').textContent=filtered.length;
+ document.getElementById('firm-count').textContent=[...new Set(filtered.map(j=>j.firm))].length;
+ document.getElementById('jobs-container').innerHTML=filtered.map(j=>`
+  <div class="job">
+   <div class="job-top">
+    <div>
+     <h3>${j.title}</h3>
+     <div class="company">${j.firm}</div>
+    </div>
+    <div class="deadline">${j.deadline}</div>
+   </div>
+   <div class="meta">
+    <span>${j.loc}</span>
+    <span><span class="badge ${j.badge}">${j.emp==='praktik'?'Praktik':j.emp==='spontan'?'Spontanansokan':j.type==='landskapsarkitekt'?'Landskapsarkitekt':j.type==='inredningsarkitekt'?'Inredningsarkitekt':j.type==='ingenjor'?'Ingenjor':j.type==='arkitekt'?'Arkitekt':'Ovrigt'}</span></span>
+   </div>
+   <p class="desc">${j.desc}</p>
+   <a href="${j.url}" target="_blank" rel="noopener" class="apply">Visa / Ansok</a>
+  </div>
+ `).join('');
+}
+
+document.querySelectorAll('.filters select, .filters input').forEach(el=>{
+ el.addEventListener('change',render);
+ el.addEventListener('input',render);
+});
+render();
+</script>
+</body>
+</html>
